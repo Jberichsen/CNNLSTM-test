@@ -55,6 +55,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr = lr, weight_decay = 1e-4) # 
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=5, min_lr = 1e-6)
 train_step = make_train_step(model, optimizer, loss_fn)
 # train_step_foc = make_train_step_foc(model, optimizer)
+n_epochs = 20
 
 
 
