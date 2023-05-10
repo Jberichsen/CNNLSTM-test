@@ -147,3 +147,10 @@ def train_validate(n_epochs, train_fold, val_fold):
     torch.save(AUC_best_weights, AUC_path)
                   
     return epoch_val_auc, epoch_train_auc
+
+## Train and validate ## 
+
+train = trainloader
+val = valloader
+
+val_aucs, train_aucs = train_validate(n_epochs, train, val)
