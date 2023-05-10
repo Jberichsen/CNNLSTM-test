@@ -32,7 +32,6 @@ class Extractor(nn.Module):
 
 
 
-
 ### Initialize LSTM ### 
 
 class LSTM(nn.Module):
@@ -71,6 +70,8 @@ class LSTM(nn.Module):
         return out
   
   
+  
+  
 ### Load models ### 
 
 device = "cuda" if torch.cuda.is_available else "cpu"
@@ -92,11 +93,20 @@ model.to(device)
 
 
 
+
 ### initialize hyperparameters ### 
 
 lr = 1e-3
-loss_fn = BCEWithLogitsLoss() # Has sigmoid     
-optimizer = torch.optim.Adam(model.parameters(), lr = lr, weight_decay=1e-4)
+loss_fn = BCEWithLogitsLoss() # Has sigmoid 
+
+# Adam:
+optimizer = torch.optim.Adam(model.parameters(), lr = lr) # If dropout
+optimizer = torch.optim.Adam(model.parameters(), lr = lr, weight_decay = 1e-4) # if weight decay 
+
+# SGD 
+optimizer = torch.optim.SGD(model.parameters(), lr = lr, momentum = 0.9) # If dropout
+optimizer = torch.optim.SGD(model.parameters(), lr = lr, momentum = 0.9, weight_decay = 1e-4) # if weight decay 
+
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=10, min_lr = 1e-6)
 train_step = make_train_step(model, extractor, optimizer, loss_fn)
 # train_step_foc = make_train_step_foc(model, optimizer)
