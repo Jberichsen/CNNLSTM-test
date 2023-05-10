@@ -2,4 +2,4 @@
 
 This github repository contains all the relevant code for the models, training, validation and evaluation that was carried out in my thesis.
 
-All the remaining information about data organization and initialization should be described in the thesis. 
+All remaining information about data organization and initialization is found in the thesis. 
