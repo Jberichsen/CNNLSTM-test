@@ -16,11 +16,11 @@ AUC_state_dict_3 = torch.load("Cross_val/Fold_5_AUC_att")
 model_3.load_state_dict(AUC_state_dict_3)
 model_3.eval()
 
-AUC_state_dict_4 = torch.load("Cross_val/Fold_2_AUC")
+AUC_state_dict_4 = torch.load("Cross_val/Fold_1_AUC_2nd")
 model_4.load_state_dict(AUC_state_dict_4)
 model_4.eval()
 
-AUC_state_dict_5 = torch.load("Cross_val/Fold_4_AUC")
+AUC_state_dict_5 = torch.load("Cross_val/Fold_2_AUC_2nd")
 model_5.load_state_dict(AUC_state_dict_5)
 model_5.eval()
 
@@ -62,6 +62,8 @@ def testing(models, dataloader):
         AUC = sm.roc_auc_score(targets, preds)
         
         return confusion_matrix, AUC
+
+## Plot results ## 
 
 confusion_matrix, AUC = testing(models, test)
 # cm_plot = sm.ConfusionMatrixDisplay(confusion_matrix)
