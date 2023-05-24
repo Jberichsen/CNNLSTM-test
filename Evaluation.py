@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 ### Evaluation loop ### 
 
-test = testloader
-
 # Load model
 mod_state_dict = torch.load("Mod_LSTM_3h/34D_loss_att")
 model.load_state_dict(mod_state_dict)
@@ -54,6 +52,7 @@ def testing(model, extractor, dataloader):
   
  ### Evaluate ### 
  
+test = testloader # Load test data
 confusion_matrix, AUC, preds, targets = testing(model, extractor, test)
 cm_plot = sm.ConfusionMatrixDisplay(np.round((confusion_matrix/(np.sum(confusion_matrix)))*100,2)) # Transform to percentages
 cm_plot.plot()
