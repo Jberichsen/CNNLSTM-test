@@ -24,7 +24,7 @@ def make_train_step(model, extractor, optimizer, criterion):
 
 ### Training and Validation loop function ### 
    
-def train_validate(n_epochs, train_fold, val_fold):
+def train_validate(n_epochs, train_loader, val_loader):
     
     # Pre- allocation 
     losses = []
@@ -43,7 +43,7 @@ def train_validate(n_epochs, train_fold, val_fold):
         pred_labels = np.empty((0,))
         
         
-        for i, data in tqdm(enumerate(train_fold), total = len(train_fold)):
+        for i, data in tqdm(enumerate(train_loader), total = len(train_loader)):
                         
             x_batch, y_batch = data 
 
@@ -57,7 +57,7 @@ def train_validate(n_epochs, train_fold, val_fold):
             
             loss, pred = train_step(x_batch, y_batch)
             # loss, pred = train_step_foc(x_batch, y_batch)
-            epoch_loss += loss/len(train_fold)
+            epoch_loss += loss/len(train_loader)
             losses.append(loss)
             
             # Append predictions and targets 
@@ -84,7 +84,7 @@ def train_validate(n_epochs, train_fold, val_fold):
             true_labels = np.empty((0,))
             pred_labels = np.empty((0,))
             
-            for x_batch, y_batch in val_fold: 
+            for x_batch, y_batch in val_loader: 
                 
                 x_batch = x_batch.to(device)
 
@@ -102,7 +102,7 @@ def train_validate(n_epochs, train_fold, val_fold):
                 val_loss = loss_fn(yhat, y_batch)
                 # val_loss = torchvision.ops.sigmoid_focal_loss(yhat, y_batch, reduction = 'mean')
                 
-                cum_loss += val_loss/len(val_fold)
+                cum_loss += val_loss/len(val_loader)
                 val_losses.append(val_loss.item())
                 
                 pred = (yhat.numpy() >= 0) + 0
@@ -153,6 +153,7 @@ def train_validate(n_epochs, train_fold, val_fold):
 
 train = trainloader
 val = valloader
+n_epochs = 30 # Or 20                                    
 
 val_aucs, train_aucs = train_validate(n_epochs, train, val)
 
