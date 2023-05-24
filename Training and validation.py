@@ -153,7 +153,7 @@ def train_validate(n_epochs, train_loader, val_loader):
 
 train = trainloader
 val = valloader
-n_epochs = 30 # Or 20                                    
+n_epochs = 30 # 20 if static                                    
 
 val_aucs, train_aucs = train_validate(n_epochs, train, val)
 
